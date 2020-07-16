@@ -25,6 +25,8 @@ public class Curso {
     private List<Clase> clases = new ArrayList<>();
     @ManyToMany(mappedBy = "cursos")
     private List<Categoria> categorias = new ArrayList<>();
+    @OneToMany(mappedBy = "curso")
+    private Inscripcion inscripcion;
 
     /**
      * @return the cursoId
@@ -80,6 +82,48 @@ public class Curso {
      */
     public void setEstudiates(List<Estudiante> estudiates) {
         this.estudiates = estudiates;
+    }
+
+    /**
+     * @return the clases
+     */
+    public List<Clase> getClases() {
+        return clases;
+    }
+
+    /**
+     * @param clases the clases to set
+     */
+    public void setClases(List<Clase> clases) {
+        this.clases = clases;
+    }
+
+    /**
+     * @return the categorias
+     */
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    /**
+     * @param categorias the categorias to set
+     */
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    /**
+     * @return the inscripcion
+     */
+    public Inscripcion getInscripcion() {
+        return inscripcion;
+    }
+
+    /**
+     * @param inscripcion the inscripcion to set
+     */
+    public void setInscripcion(Inscripcion inscripcion) {
+        this.inscripcion = inscripcion;
     }
 
 }

@@ -12,6 +12,8 @@ public class Docente extends Persona {
     @Column(name = "docente_id")
     private Integer docenteId;
     private List<Curso> cursosQueDicta = new ArrayList<Curso>();
+    @OneToOne(mappedBy = "docente")
+    private Docente docente;
 
     /**
      * @return the docenteId
@@ -39,6 +41,34 @@ public class Docente extends Persona {
      */
     public void setCursos(List<Curso> cursosQueDicta) {
         this.cursosQueDicta = cursosQueDicta;
+    }
+
+    /**
+     * @return the cursosQueDicta
+     */
+    public List<Curso> getCursosQueDicta() {
+        return cursosQueDicta;
+    }
+
+    /**
+     * @param cursosQueDicta the cursosQueDicta to set
+     */
+    public void setCursosQueDicta(List<Curso> cursosQueDicta) {
+        this.cursosQueDicta = cursosQueDicta;
+    }
+
+    /**
+     * @return the docente
+     */
+    public Docente getDocente() {
+        return docente;
+    }
+
+    /**
+     * @param docente the docente to set
+     */
+    public void setDocente(Docente docente) {
+        this.docente = docente;
     }
 
 }
