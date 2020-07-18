@@ -9,25 +9,25 @@ import javax.persistence.*;
 public class Inscripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Inscripcion_id")
+    @Column(name = "inscripcion_id")
     private Integer inscripcionId;
-    private Date fecha;
-    // ManyToOne + JoinColumn + name de la columna de referencia
     @ManyToOne
     @JoinColumn(name = "curso_id", referencedColumnName = "curso_id")
     private Curso curso;
+    private Date fecha;
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private Usuario usuario;
     @Column(name = "estado_inscripcion_id")
-    private EstadioDeInscripcion estadoInscripcion;
+    private EstadoInscripcionEnum estadoInscripcionEnum;
 
-    public enum EstadioDeInscripcion {
-        INACTIV(0), ACTIVO(1);
+    public enum EstadoInscripcionEnum {
+        DOCENTE(1), ESTUDIANTE(2), STAFF(3);
 
         private final Integer value;
 
-        private EstadioDeInscripcion(Integer value) {
+        // NOTE: Enum constructor tiene que estar en privado
+        private EstadoInscripcionEnum(Integer value) {
             this.value = value;
         }
 
@@ -35,9 +35,9 @@ public class Inscripcion {
             return value;
         }
 
-        public static EstadioDeInscripcion parse(Integer id) {
-            EstadioDeInscripcion status = null;
-            for (EstadioDeInscripcion item : EstadioDeInscripcion.values()) {
+        public static EstadoInscripcionEnum parse(Integer id) {
+            EstadoInscripcionEnum status = null; // Default
+            for (EstadoInscripcionEnum item : EstadoInscripcionEnum.values()) {
                 if (item.getValue().equals(id)) {
                     status = item;
                     break;
@@ -62,20 +62,6 @@ public class Inscripcion {
     }
 
     /**
-     * @return the fecha
-     */
-    public Date getFecha() {
-        return fecha;
-    }
-
-    /**
-     * @param fecha the fecha to set
-     */
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    /**
      * @return the curso
      */
     public Curso getCurso() {
@@ -87,6 +73,20 @@ public class Inscripcion {
      */
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    /**
+     * @return the fecha
+     */
+    public Date getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     /**
@@ -104,16 +104,17 @@ public class Inscripcion {
     }
 
     /**
-     * @return the estadoInscripcion
+     * @return the estadoInscripcionEnum
      */
-    public EstadioDeInscripcion getEstadoInscripcion() {
-        return estadoInscripcion;
+    public EstadoInscripcionEnum getEstadoInscripcionEnum() {
+        return estadoInscripcionEnum;
     }
 
     /**
-     * @param estadoInscripcion the estadoInscripcion to set
+     * @param estadoInscripcionEnum the estadoInscripcionEnum to set
      */
-    public void setEstadoInscripcion(EstadioDeInscripcion estadoInscripcion) {
-        this.estadoInscripcion = estadoInscripcion;
+    public void setEstadoInscripcionEnum(EstadoInscripcionEnum estadoInscripcionEnum) {
+        this.estadoInscripcionEnum = estadoInscripcionEnum;
     }
+
 }

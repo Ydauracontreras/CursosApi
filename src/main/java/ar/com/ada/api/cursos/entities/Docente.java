@@ -1,6 +1,6 @@
 package ar.com.ada.api.cursos.entities;
 
-import java.util.*;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -8,67 +8,37 @@ import javax.persistence.*;
 @Table(name = "docente")
 public class Docente extends Persona {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "docente_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer docenteId;
-    private List<Curso> cursosQueDicta = new ArrayList<Curso>();
+    @ManyToMany
+    @JoinTable(name = "docente_x_curso", joinColumns = @JoinColumn(name = "docente_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    private List<Curso> cursosQueDicta;
     @OneToOne(mappedBy = "docente")
-    private Docente docente;
+    private Usuario usuario;
 
-    /**
-     * @return the docenteId
-     */
     public Integer getDocenteId() {
         return docenteId;
     }
 
-    /**
-     * @param docenteId the docenteId to set
-     */
     public void setDocenteId(Integer docenteId) {
         this.docenteId = docenteId;
     }
 
-    /**
-     * @return the cursos
-     */
-    public List<Curso> getCursos() {
-        return cursosQueDicta;
-    }
-
-    /**
-     * @param cursos the cursos to set
-     */
-    public void setCursos(List<Curso> cursosQueDicta) {
-        this.cursosQueDicta = cursosQueDicta;
-    }
-
-    /**
-     * @return the cursosQueDicta
-     */
     public List<Curso> getCursosQueDicta() {
         return cursosQueDicta;
     }
 
-    /**
-     * @param cursosQueDicta the cursosQueDicta to set
-     */
     public void setCursosQueDicta(List<Curso> cursosQueDicta) {
         this.cursosQueDicta = cursosQueDicta;
     }
 
-    /**
-     * @return the docente
-     */
-    public Docente getDocente() {
-        return docente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    /**
-     * @param docente the docente to set
-     */
-    public void setDocente(Docente docente) {
-        this.docente = docente;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

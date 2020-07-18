@@ -1,12 +1,12 @@
 package ar.com.ada.api.cursos.entities;
 
 public class Pais {
-
     public enum PaisEnum {
-        Argentina(32), Venezuela(840), Estado_Unidos(862);
+        ARGENTINA(32), VENEZUELA(840), ESTADOS_UNIDOS(862);
 
         private final Integer value;
 
+        // NOTE: Enum constructor tiene que estar en privado
         private PaisEnum(Integer value) {
             this.value = value;
         }
@@ -16,7 +16,7 @@ public class Pais {
         }
 
         public static PaisEnum parse(Integer id) {
-            PaisEnum status = null;
+            PaisEnum status = null; // Default
             for (PaisEnum item : PaisEnum.values()) {
                 if (item.getValue().equals(id)) {
                     status = item;
@@ -27,12 +27,13 @@ public class Pais {
         }
     }
 
-    public enum TipoDocumentoEnum {
-        Dni(1), Pasaporte(2);
+    public enum TipoDocuEnum {
+        DNI(1), PASAPORTE(2);
 
         private final Integer value;
 
-        private TipoDocumentoEnum(Integer value) {
+        // NOTE: Enum constructor tiene que estar en privado
+        private TipoDocuEnum(Integer value) {
             this.value = value;
         }
 
@@ -40,9 +41,9 @@ public class Pais {
             return value;
         }
 
-        public static TipoDocumentoEnum parse(Integer id) {
-            TipoDocumentoEnum status = null;
-            for (TipoDocumentoEnum item : TipoDocumentoEnum.values()) {
+        public static TipoDocuEnum parse(Integer id) {
+            TipoDocuEnum status = null; // Default
+            for (TipoDocuEnum item : TipoDocuEnum.values()) {
                 if (item.getValue().equals(id)) {
                     status = item;
                     break;

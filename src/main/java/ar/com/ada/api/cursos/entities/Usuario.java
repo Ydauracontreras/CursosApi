@@ -1,8 +1,12 @@
 package ar.com.ada.api.cursos.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "usuario")
@@ -24,14 +28,16 @@ public class Usuario {
     @OneToOne
     @JoinColumn(name = "docente_id", referencedColumnName = "docente_id")
     private Docente docente;
-    @OneToMany(mappedBy = "usuario")
-    private Inscripcion inscripcion;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Inscripcion> inscripciones;
 
     public enum TipoUsuarioEnum {
         DOCENTE(1), ESTUDIANTE(2), STAFF(3);
 
         private final Integer value;
 
+        // NOTE: Enum constructor tiene que estar en privado
         private TipoUsuarioEnum(Integer value) {
             this.value = value;
         }
@@ -41,7 +47,7 @@ public class Usuario {
         }
 
         public static TipoUsuarioEnum parse(Integer id) {
-            TipoUsuarioEnum status = null;
+            TipoUsuarioEnum status = null; // Default
             for (TipoUsuarioEnum item : TipoUsuarioEnum.values()) {
                 if (item.getValue().equals(id)) {
                     status = item;
@@ -165,17 +171,17 @@ public class Usuario {
     }
 
     /**
-     * @return the inscripcion
+     * @return the inscripciones
      */
-    public Inscripcion getInscripcion() {
-        return inscripcion;
+    public List<Inscripcion> getInscripciones() {
+        return inscripciones;
     }
 
     /**
-     * @param inscripcion the inscripcion to set
+     * @param inscripciones the inscripciones to set
      */
-    public void setInscripcion(Inscripcion inscripcion) {
-        this.inscripcion = inscripcion;
+    public void setInscripciones(List<Inscripcion> inscripciones) {
+        this.inscripciones = inscripciones;
     }
 
 }

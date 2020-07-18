@@ -5,30 +5,39 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "estudiantes")
+@Table(name = "estudiante")
 public class Estudiante extends Persona {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "estudiante_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer estudianteId;
     @ManyToMany
-    @JoinTable(name = "estudiante_x_curso", joinColumns = @JoinColumn(name = "estudiate_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    @JoinTable(name = "estudiante_x_curso", joinColumns = @JoinColumn(name = "estudiante_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
     private List<Curso> cursosQueAsiste;
-    @OneToOne(mappedBy = "estudiante")
+    @OneToOne(mappedBy = "estudiante") // nombre del atributo en el obj usuario
     private Usuario usuario;
 
-    /**
-     * @return the estudianteId
-     */
     public Integer getEstudianteId() {
         return estudianteId;
     }
 
-    /**
-     * @param estudianteId the estudianteId to set
-     */
     public void setEstudianteId(Integer estudianteId) {
         this.estudianteId = estudianteId;
     }
 
+    public List<Curso> getCursosQueAsiste() {
+        return cursosQueAsiste;
+    }
+
+    public void setCursosQueAsiste(List<Curso> cursosQueAsiste) {
+        this.cursosQueAsiste = cursosQueAsiste;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
