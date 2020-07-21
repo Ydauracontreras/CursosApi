@@ -1,5 +1,6 @@
 package ar.com.ada.api.cursos.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class CategoriaService {
         if (c.isPresent())
             return c.get();
         return null;
+    }
+
+    public List<Categoria> listarCategorias() {
+        return categoriaRepository.findAll();
+
     }
 }

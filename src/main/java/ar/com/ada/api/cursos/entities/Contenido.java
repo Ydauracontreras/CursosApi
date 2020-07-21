@@ -18,6 +18,8 @@ public class Contenido {
     @ManyToOne
     @JoinColumn(name = "clase_id", referencedColumnName = "clase_id")
     private Clase clase;
+    @Column(name = "tipo_contenido_id")
+    private TipoContenidoEnum tipoContenidoId;
 
     public enum TipoContenidoEnum {
         URL(1), TEXTO(2), VIDEO(3);
@@ -91,5 +93,20 @@ public class Contenido {
 
     public void setClase(Clase clase) {
         this.clase = clase;
+        this.clase.getContenidos().add(this);
+    }
+
+    /**
+     * @return the tipoContenidoId
+     */
+    public TipoContenidoEnum getTipoContenidoId() {
+        return tipoContenidoId;
+    }
+
+    /**
+     * @param tipoContenidoId the tipoContenidoId to set
+     */
+    public void setTipoContenidoId(TipoContenidoEnum tipoContenidoId) {
+        this.tipoContenidoId = tipoContenidoId;
     }
 }

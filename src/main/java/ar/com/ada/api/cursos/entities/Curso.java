@@ -85,4 +85,34 @@ public class Curso {
         this.inscripciones = inscripciones;
     }
 
+    // Relacion bidireccional entre un curso y un docente
+    public void asignarDocente(Docente docente) {
+        this.docentes.add(docente);
+        docente.getCursosQueDicta().add(this);
+    }
+
+    // Relacion bidireccional entre un curso y un estudiante
+    public void asignarEstudiante(Estudiante estudiante) {
+        this.estudiantes.add(estudiante);
+        estudiante.getCursosQueAsiste().add(this);
+    }
+
+    // Relacion bidireccional entre un curso y sus clasess
+    public void agregarClase(Clase clase) {
+        this.clases.add(clase);
+        clase.setCurso(this);
+
+    }
+
+    // Relacion bidireccional entre un curso y su categoria
+    public void agregarCategoria(Categoria categoria) {
+        this.categorias.add(categoria);
+        categoria.getCursos().add(this);
+    }
+
+    // Relacion bidireaccional de un curso con la inscripcion
+    public void agregarInscripcion(Inscripcion inscripcion) {
+        this.inscripciones.add(inscripcion);
+        inscripcion.setCurso(this);
+    }
 }
