@@ -37,4 +37,8 @@ public class CategoriaService {
         return categoriaRepository.findAll();
 
     }
+
+    public Object listarCategoriasById(Integer id) {
+        return categoriaRepository.findById(id);
+    }
 }

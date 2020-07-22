@@ -35,4 +35,9 @@ public class CategoriaController {
     ResponseEntity<?> listarCategorias() {
         return ResponseEntity.ok(categoriaService.listarCategorias());
     }
+
+    @GetMapping("/categorias/{id}")
+    ResponseEntity<?> CategoriaPorId(@RequestBody Integer id) {
+        return ResponseEntity.ok(categoriaService.listarCategoriasById(id));
+    }
 }
