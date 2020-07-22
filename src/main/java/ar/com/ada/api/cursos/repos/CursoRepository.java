@@ -6,5 +6,5 @@ import ar.com.ada.api.cursos.entities.Curso;
 
 public interface CursoRepository extends JpaRepository<Curso, Integer> {
 
-    boolean existbyNombre(String nombre);
+    // boolean existbyNombre(String nombre);
 }

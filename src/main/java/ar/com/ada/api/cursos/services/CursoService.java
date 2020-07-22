@@ -14,27 +14,19 @@ public class CursoService {
     @Autowired
     CategoriaService categoriaService;
 
-    public boolean crearCurso(Curso curso) {
-        if (cursoRepository.existbyNombre(curso.getNombre()))
-            return false;
-        grabar(curso);
-        return true;
-    }
-
-    public Curso crearCurso(String nombre, Integer categoriaId) {
-        Curso curso = new Curso();
-        curso.setNombre(nombre);
-        curso.agregarCategoria(categoriaService.buscarPorId(categoriaId));
-
-        boolean cursoNuevo = crearCurso(curso);
-        if (cursoNuevo)
-            return curso;
-        else
-            return null;
-    }
-
-    public void grabar(Curso curso) {
-        cursoRepository.save(curso);
-    }
+    /*
+     * public boolean crearCurso(Curso curso) { if
+     * (cursoRepository.existbyNombre(curso.getNombre())) return false;
+     * grabar(curso); return true; }
+     * 
+     * public Curso crearCurso(String nombre, Integer categoriaId) { Curso curso =
+     * new Curso(); curso.setNombre(nombre);
+     * curso.agregarCategoria(categoriaService.buscarPorId(categoriaId));
+     * 
+     * boolean cursoNuevo = crearCurso(curso); if (cursoNuevo) return curso; else
+     * return null; }
+     * 
+     * public void grabar(Curso curso) { cursoRepository.save(curso); }
+     */
 
 }

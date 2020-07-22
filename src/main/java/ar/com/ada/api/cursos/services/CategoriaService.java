@@ -14,8 +14,9 @@ public class CategoriaService {
     @Autowired
     CategoriaRepository categoriaRepository;
 
-    public void crearCategoria(Categoria categoria) {
+    public boolean crearCategoria(Categoria categoria) {
         categoriaRepository.save(categoria);
+        return true;
     }
 
     public Categoria crearCategoria(String nombre, String descripcion) {
@@ -38,7 +39,12 @@ public class CategoriaService {
 
     }
 
-    public Object listarCategoriasById(Integer id) {
-        return categoriaRepository.findById(id);
+    public Categoria listarCategoriasById(Integer id) {
+        // este metodo arroja un opcional por lo que debo evaluar si esta presente para
+        // devolver el objeto
+        Optional<Categoria> c = categoriaRepository.findById(id);
+        if (c.isPresent())
+            return c.get();
+        return null;
     }
 }
