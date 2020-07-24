@@ -1,11 +1,12 @@
 package ar.com.ada.api.cursos.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import ar.com.ada.api.cursos.entities.Categoria;
 import ar.com.ada.api.cursos.entities.Curso;
 import ar.com.ada.api.cursos.repos.CursoRepository;
 
@@ -20,6 +21,12 @@ public class CursoService {
     public boolean crearCurso(Curso curso) {
         if (cursoRepository.existsByNombre(curso.getNombre()))
             return false;
+        else
+            grabar(curso);
+        return true;
+    }
+
+    public boolean modificarCurso(Curso curso) {
         grabar(curso);
         return true;
     }
@@ -43,6 +50,15 @@ public class CursoService {
 
     public List<Curso> listarCursos() {
         return cursoRepository.findAll();
+    }
+
+    public Curso buscarCursoPorId(Integer id) {
+        Optional<Curso> curso = cursoRepository.findById(id);
+        if (curso.isPresent()) {
+            return curso.get();
+        } else
+            return null;
+
     }
 
 }
