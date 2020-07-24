@@ -1,7 +1,5 @@
 package ar.com.ada.api.cursos.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +48,7 @@ public class CategoriaController {
     }
 
     // Modifica Nombre y descripcion de una Categoria
+    // CategoriaRequest para mapear los datos desde el front
     @PutMapping("/categorias/{id}")
     ResponseEntity<?> editarCategoria(@PathVariable Integer id, @RequestBody CategoriaRequest categoriaReq) {
         Categoria categoria = categoriaService.buscarPorId(id);

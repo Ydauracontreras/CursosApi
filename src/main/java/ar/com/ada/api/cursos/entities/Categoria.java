@@ -1,5 +1,6 @@
 package ar.com.ada.api.cursos.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -17,7 +18,7 @@ public class Categoria {
     @ManyToMany
     @JoinTable(name = "curso_x_categoria", joinColumns = @JoinColumn(name = "categoria_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
     @JsonIgnore
-    private List<Curso> cursos;
+    private List<Curso> cursos = new ArrayList<>();
 
     public Integer getCategoriaId() {
         return categoriaId;

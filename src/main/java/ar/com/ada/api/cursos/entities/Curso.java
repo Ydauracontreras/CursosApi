@@ -1,8 +1,11 @@
 package ar.com.ada.api.cursos.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -19,15 +22,19 @@ public class Curso {
     @ManyToMany(mappedBy = "cursosQueDicta")
     private List<Docente> docentes;
     @ManyToMany(mappedBy = "cursosQueAsiste")
-    private List<Estudiante> estudiantes;
+    private List<Estudiante> estudiantes = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Clase> clases;
+    private List<Clase> clases = new ArrayList<>();
     @ManyToMany(mappedBy = "cursos")
-    private List<Categoria> categorias;
+    @JsonIgnore
+    private List<Categoria> categorias = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Inscripcion> inscripciones;
+    private List<Inscripcion> inscripciones = new ArrayList<>();
+    @Column(name = "duracion_horas")
+    private Integer duracionHoras;
+    private String descripcion;
 
     public Integer getCursoId() {
         return cursoId;
@@ -114,5 +121,33 @@ public class Curso {
     public void agregarInscripcion(Inscripcion inscripcion) {
         this.inscripciones.add(inscripcion);
         inscripcion.setCurso(this);
+    }
+
+    /**
+     * @return the duracionHoras
+     */
+    public Integer getDuracionHoras() {
+        return duracionHoras;
+    }
+
+    /**
+     * @param duracionHoras the duracionHoras to set
+     */
+    public void setDuracionHoras(Integer duracionHoras) {
+        this.duracionHoras = duracionHoras;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
