@@ -9,6 +9,7 @@ import ar.com.ada.api.cursos.model.response.GenericResponse;
 import ar.com.ada.api.cursos.services.*;
 
 @RestController
+@CrossOrigin("*")
 public class CategoriaController {
     // Post: recibimos, nos permite instanciar una categoria y ponerle datos.
     @Autowired
