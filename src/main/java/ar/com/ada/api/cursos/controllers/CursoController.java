@@ -10,13 +10,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ada.api.cursos.entities.Curso;
+import ar.com.ada.api.cursos.entities.Docente;
+import ar.com.ada.api.cursos.model.request.AsignarDocenteRequest;
 import ar.com.ada.api.cursos.model.request.CursoMRequest;
 import ar.com.ada.api.cursos.model.request.CursoRequest;
 import ar.com.ada.api.cursos.model.response.GenericResponse;
 import ar.com.ada.api.cursos.services.CategoriaService;
 import ar.com.ada.api.cursos.services.CursoService;
+import ar.com.ada.api.cursos.services.DocenteService;
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class CursoController {
@@ -26,6 +32,9 @@ public class CursoController {
 
     @Autowired
     CategoriaService categoriaService;
+
+    @Autowired
+    DocenteService docenteService;
 
     // Crear un Curso ingresando nombre, categoriaId, duracion y descripcion
     @PostMapping("/api/cursos")
@@ -91,8 +100,40 @@ public class CursoController {
             r.message = "No pudiste Modificar el esta curso";
             return ResponseEntity.badRequest().body(r);
         }
+    }
+
+    // Asignar un Docente a un curso
+    @PostMapping("/api/cursos/{cursoId}/docentes")
+    public ResponseEntity<GenericResponse> asignarDocente(@PathVariable Integer cursoId,
+            @RequestBody AsignarDocenteRequest docenteRequest) {
+        GenericResponse r = new GenericResponse();
+        if (cursoService.asignarDocente(cursoId, docenteRequest.docenteId)) {
+            r.isOk = true;
+            r.message = "Docente asignado con existo al curso";
+
+            return ResponseEntity.ok(r);
+        }
+        r.isOk = false;
+        r.message = "El docente no pudo asignarse";
+        return ResponseEntity.badRequest().body(r);
 
     }
+
+    // Filtro
+
+    @GetMapping("/api/cursos/docentes")
+    public ResponseEntity<List<Curso>> listarCursosSinDocete(
+            @RequestParam(value = "sinDocentes", required = false) boolean sinDocentes) {
+        List<Curso> listaCursos = new ArrayList<>();
+        if (sinDocentes) {
+            listaCursos = cursoService.listarCursosSinDocentes();
+            listaCursos = cursoService.listarCursos();
+        }
+
+        return ResponseEntity.ok(listaCursos);
+
+    }
+
 }
 
 // Cursos por Estudiante

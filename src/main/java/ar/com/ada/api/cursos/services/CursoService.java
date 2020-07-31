@@ -1,11 +1,13 @@
 package ar.com.ada.api.cursos.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.com.ada.api.cursos.entities.Curso;
+import ar.com.ada.api.cursos.entities.Docente;
 import ar.com.ada.api.cursos.repos.CursoRepository;
 
 @Service
@@ -15,6 +17,9 @@ public class CursoService {
 
     @Autowired
     CategoriaService categoriaService;
+
+    @Autowired
+    DocenteService docenteService;
 
     public boolean crearCurso(Curso curso) {
         if (cursoRepository.existsByNombre(curso.getNombre()))
@@ -57,6 +62,34 @@ public class CursoService {
         } else
             return null;
 
+    }
+
+    public boolean asignarDocente(Integer cursoId, Integer docenteId) {
+        Curso curso = new Curso();
+        this.buscarCursoPorId(cursoId);
+        List<Docente> docentes = curso.getDocentes();
+        for (Docente docente : docentes) {
+            docente.getDocenteId().equals(docenteId);
+            return false;
+        }
+        Docente docente = docenteService.buscarPorId(docenteId);
+        // Relacion Bidireccional de docente
+        // Asigno el docente al curso
+        curso.asignarDocente(docente);
+
+        // Actualizo la base de datos
+        cursoRepository.save(curso);
+        return true;
+    }
+
+    public List<Curso> listarCursosSinDocentes() {
+        List<Curso> cursoSinDocentes = new ArrayList<>();
+        for (Curso curso : listarCursos()) {
+            // size(0) tambien podemos usarlo
+            if (curso.getDocentes().isEmpty())
+                cursoSinDocentes.add(curso);
+        }
+        return cursoSinDocentes;
     }
 
 }
