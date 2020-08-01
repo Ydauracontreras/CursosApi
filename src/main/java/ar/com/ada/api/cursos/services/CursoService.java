@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.com.ada.api.cursos.entities.Curso;
 import ar.com.ada.api.cursos.entities.Docente;
+import ar.com.ada.api.cursos.entities.Estudiante;
 import ar.com.ada.api.cursos.repos.CursoRepository;
 
 @Service
@@ -90,6 +91,24 @@ public class CursoService {
                 cursoSinDocentes.add(curso);
         }
         return cursoSinDocentes;
+    }
+
+    // Lista los cursos donde el estudiante no esta asignado y estan disponibles
+    public List<Curso> listarCursosSinElEstudiante(Estudiante estudiante) {
+        List<Curso> cursosDisponibles = new ArrayList<>();
+        for (Curso curso : listarCursos()) {
+            boolean anotado = false;
+            for (Estudiante e : curso.getEstudiantes()) {
+                if (e.getEstudianteId().equals(estudiante.getEstudianteId())) {
+                    anotado = true;
+                    break; // rompe el ciclo actual
+                }
+            }
+            if (!anotado) {
+                cursosDisponibles.add(curso);
+            }
+        }
+        return cursosDisponibles;
     }
 
 }
