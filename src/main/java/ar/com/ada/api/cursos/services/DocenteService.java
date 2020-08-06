@@ -24,10 +24,10 @@ public class DocenteService {
     }
 
     public boolean crearDocente(Docente docente) {
-        if (docenteRepository.existsDocente(docente.getPaisId().getValue(), docente.getTipoDocumentoId().getValue(),
+        if (docenteRepository.existsDocente(docente.getPaisId(), docente.getTipoDocumentoId().getValue(),
                 docente.getDocumento()))
             return false;
-        docenteRepository.save(docente);
+        grabar(docente);
         return true;
     }
 

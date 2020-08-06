@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ import ar.com.ada.api.cursos.model.response.GenericResponse;
 import ar.com.ada.api.cursos.services.CursoService;
 import ar.com.ada.api.cursos.services.EstudianteService;
 
-@Service
+@Controller
 public class EstudianteController {
     @Autowired
     EstudianteService estudianteService;
@@ -31,19 +31,16 @@ public class EstudianteController {
     @PostMapping("/api/estudiantes")
     public ResponseEntity<GenericResponse> crearEstudiante(@RequestBody Estudiante estudiante) {
         GenericResponse r = new GenericResponse();
-        GenericResponse rError = new GenericResponse();
-
-        boolean resultado = estudianteService.crearEstudiante(estudiante);
-        if (resultado == false) {
-            rError.isOk = false;
-            rError.message = "Estudiante ya existe";
-            return ResponseEntity.badRequest().body(rError);
-
-        } else
+        if (estudianteService.crearEstudiante(estudiante)) {
             r.isOk = true;
-        r.message = "Estudiante creado con exito";
-        r.id = estudiante.getEstudianteId();
-        return ResponseEntity.ok(r);
+            r.message = "Estudiante creado con exito";
+            r.id = estudiante.getEstudianteId();
+            return ResponseEntity.ok(r);
+        } else
+            r.isOk = false;
+        r.message = "Estudiante ya existe";
+        return ResponseEntity.badRequest().body(r);
+
     }
 
     @GetMapping("/api/estudiantes")

@@ -29,8 +29,8 @@ public class EstudianteService {
     }
 
     public boolean crearEstudiante(Estudiante estudiante) {
-        if (estudianteRepository.existsEstudiante(estudiante.getPaisId().getValue(),
-                estudiante.getTipoDocumentoId().getValue(), estudiante.getDocumento()))
+        if (estudianteRepository.existsEstudiante(estudiante.getPaisId(), estudiante.getTipoDocumentoId().getValue(),
+                estudiante.getDocumento()))
             return false;
         grabar(estudiante);
         return true;
