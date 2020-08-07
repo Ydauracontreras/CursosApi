@@ -22,7 +22,7 @@ public class Inscripcion {
     private EstadoInscripcionEnum estadoInscripcion;
 
     public enum EstadoInscripcionEnum {
-        DOCENTE(1), ESTUDIANTE(2), STAFF(3), ACTIVO(4);
+        INACTIVO(0), ACTIVO(1);
 
         private final Integer value;
 

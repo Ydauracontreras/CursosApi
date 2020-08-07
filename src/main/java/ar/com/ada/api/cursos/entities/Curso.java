@@ -1,7 +1,6 @@
 package ar.com.ada.api.cursos.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -18,9 +17,10 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cursoId;
     private String nombre;
+    private String descripcion;
     // cursosQueDicta para diferenciar los cursos de docente de los de estudiante
     @ManyToMany(mappedBy = "cursosQueDicta")
-    private List<Docente> docentes;
+    private List<Docente> docentes = new ArrayList<>();
     @ManyToMany(mappedBy = "cursosQueAsiste")
     private List<Estudiante> estudiantes = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
@@ -34,7 +34,6 @@ public class Curso {
     private List<Inscripcion> inscripciones = new ArrayList<>();
     @Column(name = "duracion_horas")
     private Integer duracionHoras;
-    private String descripcion;
 
     public Integer getCursoId() {
         return cursoId;

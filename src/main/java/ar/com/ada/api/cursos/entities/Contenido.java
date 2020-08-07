@@ -15,11 +15,12 @@ public class Contenido {
     private String payload;
     @Column(name = "payload_simple")
     private String payloadSimple;
+    @Column(name = "tipo_contenido_id")
+    private TipoContenidoEnum tipoContenidoId;
     @ManyToOne
     @JoinColumn(name = "clase_id", referencedColumnName = "clase_id")
     private Clase clase;
-    @Column(name = "tipo_contenido_id")
-    private TipoContenidoEnum tipoContenidoId;
+ 
 
     public enum TipoContenidoEnum {
         URL(1), TEXTO(2), VIDEO(3);
