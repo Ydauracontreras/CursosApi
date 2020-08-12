@@ -54,11 +54,11 @@ public class UsuarioService {
     // registar la entidad que representa
     public Usuario crearUsuario(TipoUsuarioEnum tipoUsuario, String nombre, int pais, TipoDocuEnum tipoDocumento,
             String documento, Date fechaNacimiento, String email, String password) {
-
         // Crear usuario: REGISTRA Un nuevo usuario
         // +Registrar la entidad que representa(Estudiante/Docente)
 
         Usuario usuario = new Usuario();
+        usuario.setFullName(nombre);
         usuario.setTipoUsuarioId(tipoUsuario);
         usuario.setUsername(email);
         usuario.setPassword(Crypto.encrypt(password, email.toLowerCase()));
@@ -92,7 +92,7 @@ public class UsuarioService {
         }
         // Aca enviamos email.
         emailService.SendEmail(usuario.getEmail(), "Curso Pinturillo: Registracion exitossa!!!",
-                "Hola " + usuario.getUsername() + ", bienvenida al sistema de cursos");
+                "Hola " + usuario.getFullName() + ", bienvenida al sistema de cursos");
 
         return usuario;
 

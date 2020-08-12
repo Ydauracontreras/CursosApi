@@ -21,6 +21,8 @@ public class Usuario {
     private Date fechaLogin;
     @Column(name = "tipo_usuario_id")
     private Integer tipoUsuarioId;
+    @Column(name = "full_name")
+    private String fullName;
     @OneToOne
     @JoinColumn(name = "estudiante_id", referencedColumnName = "estudiante_id")
     private Estudiante estudiante;
@@ -196,6 +198,27 @@ public class Usuario {
                 break;
         }
         return null;
+    }
+
+    /**
+     * @param tipoUsuarioId the tipoUsuarioId to set
+     */
+    public void setTipoUsuarioId(Integer tipoUsuarioId) {
+        this.tipoUsuarioId = tipoUsuarioId;
+    }
+
+    /**
+     * @return the fullName
+     */
+    public String getFullName() {
+        return fullName;
+    }
+
+    /**
+     * @param fullName the fullName to set
+     */
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
 }
