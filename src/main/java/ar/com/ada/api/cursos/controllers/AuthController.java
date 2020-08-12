@@ -1,19 +1,22 @@
 package ar.com.ada.api.cursos.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ada.api.cursos.entities.Usuario;
-import ar.com.ada.api.cursos.model.request.LoginRequest;
+import ar.com.ada.api.cursos.model.request.*;
 import ar.com.ada.api.cursos.model.request.RegistrationRequest;
-import ar.com.ada.api.cursos.model.response.LoginResponse;
-import ar.com.ada.api.cursos.model.response.RegistrationResponse;
+import ar.com.ada.api.cursos.model.response.*;
 import ar.com.ada.api.cursos.security.jwt.JWTTokenUtil;
 import ar.com.ada.api.cursos.services.JWTUserDetailsService;
 import ar.com.ada.api.cursos.services.UsuarioService;;
@@ -22,6 +25,7 @@ import ar.com.ada.api.cursos.services.UsuarioService;;
  * AuthController
  */
 @RestController
+@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
@@ -72,13 +76,6 @@ public class AuthController {
         String token = jwtTokenUtil.generateToken(userDetails, claims);
 
         // Cambio para que devuelva el full perfil
-        // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
-        // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
-        // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
-        // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
-        // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
-        // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
-        // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
         // Usuario u = usuarioService.buscarPorUsername(authenticationRequest.username);
 
         LoginResponse r = new LoginResponse();

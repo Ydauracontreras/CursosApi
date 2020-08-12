@@ -10,10 +10,7 @@ import ar.com.ada.api.cursos.entities.Docente;
 import ar.com.ada.api.cursos.model.response.GenericResponse;
 import ar.com.ada.api.cursos.services.DocenteService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DocenteController {

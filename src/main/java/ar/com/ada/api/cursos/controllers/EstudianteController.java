@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ar.com.ada.api.cursos.entities.Curso;
-import ar.com.ada.api.cursos.entities.Estudiante;
-import ar.com.ada.api.cursos.entities.Inscripcion;
-import ar.com.ada.api.cursos.model.request.InscripcionRequest;
-import ar.com.ada.api.cursos.model.response.GenericResponse;
-import ar.com.ada.api.cursos.services.CursoService;
-import ar.com.ada.api.cursos.services.EstudianteService;
+import ar.com.ada.api.cursos.entities.*;
+import ar.com.ada.api.cursos.model.request.*;
+import ar.com.ada.api.cursos.model.response.*;
+import ar.com.ada.api.cursos.services.*;
 
 @Controller
 public class EstudianteController {
@@ -27,6 +24,9 @@ public class EstudianteController {
 
     @Autowired
     CursoService cursoService;
+
+    //
+    // sandbox692c416868b54969837723951831889f.mailgun.org
 
     @PostMapping("/api/estudiantes")
     public ResponseEntity<GenericResponse> crearEstudiante(@RequestBody Estudiante estudiante) {
@@ -70,12 +70,12 @@ public class EstudianteController {
         return ResponseEntity.ok(listaCursos);
     }
 
-    @PostMapping("/api/estudiantes/{id}}/inscripciones")
+    @PostMapping("/api/estudiantes/{id}/inscripciones")
     public ResponseEntity<GenericResponse> inscribir(@PathVariable Integer id,
             @RequestBody InscripcionRequest inscripcionRequest) {
-
-        GenericResponse r = new GenericResponse();
         Inscripcion inscripcion = estudianteService.inscribir(id, inscripcionRequest.cursoId);
+        GenericResponse r = new GenericResponse();
+
         if (inscripcion == null) {
             r.isOk = false;
             r.message = "No se puede inscribir a este curso";

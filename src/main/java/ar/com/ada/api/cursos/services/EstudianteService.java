@@ -73,12 +73,18 @@ public class EstudianteService {
         Estudiante estudiante = buscarPorId(estudianteId);
         Curso curso = cursoService.buscarCursoPorId(cursoId);
         Inscripcion inscripcion = new Inscripcion();
-        inscripcion.setCurso(curso);
+    
         inscripcion.setFecha(new Date());
         inscripcion.setEstadoInscripcion(EstadoInscripcionEnum.ACTIVO);
+
+        // inscripcion.setCurso(curso);
+        inscripcion.setUsuario(estudiante.getUsuario());
+
         curso.agregarInscripcion(inscripcion);
         curso.asignarEstudiante(estudiante);
+
         estudianteRepository.save(estudiante);
         return inscripcion;
     }
+
 }

@@ -117,6 +117,12 @@ public class Inscripcion {
         this.estadoInscripcion = estadoInscripcion;
     }
 
+    public void setFechaInscripcion(Date date) {
+    }
+
+    public void setEstadoInscripcionId(EstadoInscripcionEnum activo) {
+    }
+
     /**
      * @param estadoInscripcionEnum the estadoInscripcionEnum to set
      */

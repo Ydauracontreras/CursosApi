@@ -1,6 +1,8 @@
 package ar.com.ada.api.cursos.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ar.com.ada.api.cursos.entities.*;
@@ -16,8 +18,8 @@ public class CategoriaController {
     CategoriaService categoriaService;
 
     // Crea una Categoria
-    @PostMapping("/categorias")
-    ResponseEntity<GenericResponse> crearCategoria(@RequestBody Categoria categoria) {
+    @PostMapping("/api/categorias")
+    public ResponseEntity<GenericResponse> crearCategoria(@RequestBody Categoria categoria) {
         categoriaService.crearCategoria(categoria);
         GenericResponse r = new GenericResponse();
         r.isOk = true;
@@ -27,7 +29,7 @@ public class CategoriaController {
     }
 
     // Trae las categorias completas
-    @GetMapping("/categorias")
+    @GetMapping("/api/categorias")
     ResponseEntity<?> listarCategorias() {
         return ResponseEntity.ok(categoriaService.listarCategorias());
     }
@@ -44,7 +46,7 @@ public class CategoriaController {
 
     // Modifica Nombre y descripcion de una Categoria
     // CategoriaRequest para mapear los datos desde el front
-    @PutMapping("/categorias/{id}")
+    @PutMapping("/api/categorias/{id}")
     ResponseEntity<?> editarCategoria(@PathVariable Integer id, @RequestBody CategoriaRequest categoriaReq) {
         Categoria categoria = categoriaService.listarCategoriasById(id);
         if (categoria == null)

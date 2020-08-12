@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ada.api.cursos.entities.Curso;
-import ar.com.ada.api.cursos.model.request.AsignarDocenteRequest;
-import ar.com.ada.api.cursos.model.request.CursoMRequest;
-import ar.com.ada.api.cursos.model.request.CursoRequest;
+import ar.com.ada.api.cursos.model.request.*;
 import ar.com.ada.api.cursos.model.response.GenericResponse;
 import ar.com.ada.api.cursos.services.CategoriaService;
-import ar.com.ada.api.cursos.services.CursoService;
-import ar.com.ada.api.cursos.services.DocenteService;
+import ar.com.ada.api.cursos.services.*;
+
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
