@@ -88,6 +88,8 @@ public class UsuarioService {
                 break;
 
             default:
+
+                usuarioRepository.save(usuario);
                 break;
         }
         // Aca enviamos email.

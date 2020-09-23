@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,7 @@ public class EstudianteController {
     }
 
     @GetMapping("/api/estudiantes/{id}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF') or (hasAuthority('CLAIM_userType_ESTUDIANTE') and hasAuthority('CLAIM_entityId_'+#id))")
     public ResponseEntity<Estudiante> buscarPorId(@PathVariable Integer id) {
         Estudiante estudiante = estudianteService.buscarPorId(id);
         if (estudiante == null)
@@ -57,6 +59,7 @@ public class EstudianteController {
     }
 
     @GetMapping("/api/estudiantes/{id}/cursos")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF') or (hasAuthority('CLAIM_userType_ESTUDIANTE') and hasAuthority('CLAIM_entityId_'+#id))")
     public ResponseEntity<?> cursosPorEstudiante(@PathVariable Integer id,
             @RequestParam(value = "disponibles", required = false) boolean disponibles) {
         List<Curso> listaCursos = new ArrayList<>();

@@ -1,8 +1,10 @@
 package ar.com.ada.api.cursos.entities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.swing.ImageIcon;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -51,4 +53,5 @@ public class Categoria {
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
+
 }

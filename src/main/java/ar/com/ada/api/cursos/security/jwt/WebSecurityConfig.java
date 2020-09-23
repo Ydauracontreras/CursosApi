@@ -66,7 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 // no autenticar estos request particulares ya que pueden ingresar sin
                 // autenticacion
 
-                .authorizeRequests().antMatchers("/api/auth/*").permitAll().
+                .authorizeRequests().antMatchers("/api/auth/*").permitAll().and().authorizeRequests()
+                .antMatchers("/api/categorias").permitAll().
                 // .antMatchers("/auth/register").permitAll().
 
                 // todos los otros requests deben ser autenticados
@@ -96,10 +97,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 
-        //Este habilita el Cors para todo tipo de items
-        //En produccion esto debe ser chequeado previamente y no permitir todos
-        //Esto solo se muestra a nivel informativo y para que se pueda
-        //hacer un front luego.
+        // Este habilita el Cors para todo tipo de items
+        // En produccion esto debe ser chequeado previamente y no permitir todos
+        // Esto solo se muestra a nivel informativo y para que se pueda
+        // hacer un front luego.
         registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
 
     }
